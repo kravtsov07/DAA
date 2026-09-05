@@ -21,7 +21,6 @@ def calc_L(n, graph, visited, path):
 
     return (min_in + min_out) / 2
 
-
 def alsh_1(n, graph):
     visited = [False] * n
     path = [0]
@@ -29,16 +28,9 @@ def alsh_1(n, graph):
     total_cost = 0
     curr = 0
 
-    print("АЛШ — алгоритм лучшего шага:")
-
     for i in range(n - 1):
-
         next_city = -1
-
-        best_f = float('inf')
-
-        best_s = 0
-        best_L = 0
+        best_f, best_s, best_L = float('inf'), 0, 0
 
         print(f"Шаг {i + 1}")
         print(f"Текущий город: {curr}")

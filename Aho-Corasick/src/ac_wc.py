@@ -44,7 +44,7 @@ class AhoCorasickWildCard:
                 print(f"  [Автомат] Ссылка π: {v.id} -> {v.suff_link.id}")
         return v.suff_link
 
-    def get_link(self, v, c):
+    def get_link(self, v: Node, c: str):
         if c not in v.go:
             if c in v.son:
                 v.go[c] = v.son[c]
@@ -54,7 +54,7 @@ class AhoCorasickWildCard:
                 v.go[c] = self.get_link(self.get_suff_link(v), c)
         return v.go[c]
 
-    def get_up(self, v):
+    def get_up(self, v: Node):
         if v.up is None:
             sl = self.get_suff_link(v)
             if sl.is_leaf:
@@ -84,9 +84,8 @@ class AhoCorasickWildCard:
                     for p_idx in temp.leaf_pattern_numbers:
                         offset = parts[p_idx][1]
                         start_pos = i - self.pattern_lengths[p_idx] - offset + 1
-
+                        
                         print(f"    Совпадение: часть №{p_idx}, возможный старт = {start_pos}")
-
                         if 0 <= start_pos <= len(text) - full_pattern_len:
                             counts[start_pos] += 1
                             print(f"        Засчитано в counts[{start_pos}] = {counts[start_pos]}")
@@ -98,7 +97,7 @@ class AhoCorasickWildCard:
     def print_automaton(self):
         print(f"{'\nИТОГОВАЯ СТРУКТУРА АВТОМАТА':^60}")
 
-        def show(v, char="ROOT", prefix="", is_last=True):
+        def show(v: Node, char="ROOT", prefix="", is_last=True):
             sl = self.get_suff_link(v)
             up = self.get_up(v)
             
@@ -154,3 +153,10 @@ if __name__ == "__main__":
             print(f"Совпадение полного шаблона с позиции {i + 1}")
             
     ac.print_automaton()
+    
+
+""" 
+abacabadaba
+a$a
+$
+"""

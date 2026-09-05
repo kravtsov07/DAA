@@ -44,7 +44,7 @@ class AhoCorasick:
                 print(f"  [Автомат] Ссылка π: {v.id} -> {v.suff_link.id}")
         return v.suff_link
 
-    def get_link(self, v, c):
+    def get_link(self, v: Node, c: str):
         if c not in v.go:
             if c in v.son:
                 v.go[c] = v.son[c]
@@ -54,7 +54,7 @@ class AhoCorasick:
                 v.go[c] = self.get_link(self.get_suff_link(v), c)
         return v.go[c]
 
-    def get_up(self, v):
+    def get_up(self, v: Node):
         if v.up is None:
             sl = self.get_suff_link(v)
             if sl.is_leaf:
@@ -67,7 +67,7 @@ class AhoCorasick:
                 print(f"  [Автомат] Ссылка up: {v.id} -> {v.up.id}")
         return v.up
 
-    def process_text(self, text):
+    def process_text(self, text: str):
         print(f"{f'\nПОИСК В ТЕКСТЕ {text}':^40}")
         results = []
         cur = self.root
@@ -80,17 +80,17 @@ class AhoCorasick:
             temp = cur
             while temp != self.root:
                 if temp.is_leaf:
-                    for p_num in temp.leaf_pattern_numbers:
-                        start_pos = i - self.pattern_lengths[p_num] + 2
-                        print(f"      Совпадение: Паттерн №{p_num} в позиции {start_pos}")
-                        results.append((start_pos, p_num))
+                    for p_idx in temp.leaf_pattern_numbers:
+                        start_pos = i - self.pattern_lengths[p_idx] + 2
+                        print(f"      Совпадение: Паттерн №{p_idx} в позиции {start_pos}")
+                        results.append((start_pos, p_idx))
                 temp = self.get_up(temp)
         return results
     
     def get_max_chains_from_root(self):
         stats = {"max_suff": 0, "max_up": 0}
 
-        def dfs(v):
+        def dfs(v: Node):
             if v != self.root:
                 curr_suff_len = 0
                 temp = v
@@ -114,9 +114,9 @@ class AhoCorasick:
         return stats["max_suff"], stats["max_up"]
     
     def print_automaton(self):
-        print(f"{'ИТОГОВАЯ СТРУКТУРА АВТОМАТА':^60}")
+        print(f"{'\nИТОГОВАЯ СТРУКТУРА АВТОМАТА':^60}")
 
-        def show(v, char="ROOT", prefix="", is_last=True):
+        def show(v: Node, char="ROOT", prefix="", is_last=True):
             sl = self.get_suff_link(v)
             up = self.get_up(v)
             
@@ -159,3 +159,12 @@ if __name__ == "__main__":
     print("Максимальная цепочка конечных ссылок " + str(up_max))
         
     ac.print_automaton()
+    
+""" 
+abababac
+4
+babac
+abac
+bac
+ac
+"""

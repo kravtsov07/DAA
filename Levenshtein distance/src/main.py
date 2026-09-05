@@ -20,7 +20,7 @@ for i in range(1, m + 1):
     cur_row[0] = i
     
     print(f"Шаг {i}: символ b: '{b[i-1]}':")
-    
+    #Последовательность преобразований над исходной строкой
     for j in range(1, n + 1):
         print(f"  Сравнение '{b[i-1]}' и '{a[j-1]}': ", end="")
         if a[j-1] == b[i-1]:
@@ -46,8 +46,5 @@ for i in range(1, m + 1):
     prev_row[:] = cur_row[:]
     prev_sub[:] = cur_sub[:]
 
-lev_distance = prev_row[n]
-substring = a[end_pos - max_len:end_pos]
-
-print(lev_distance)
-print(substring, max_len)
+print(prev_row[n])
+print(a[end_pos - max_len:end_pos], max_len)

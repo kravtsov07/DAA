@@ -12,12 +12,20 @@ def shift_kmp(a, b):
     print(f"\nВычисляем префикс-функцию для шаблона '{b}'")
     pi = [0] * m
     j = 0
+    #aabaaab
     for i in range(1, m):
+        print(f"Шаг префикс-функции {i}: Сравниваем p[{i}]='{b[i]}' и p[{j}]='{b[j]}'")
         while j > 0 and b[i] != b[j]:
+            print(f"   Несовпадение, откат: j был {j}, стал pi[{j}-1] = {pi[j-1]}")
             j = pi[j-1]
+            print(f"   Теперь сравниваем p[{i}]='{b[i]}' и p[{j}]='{b[j]}'")
         if b[i] == b[j]:
             j += 1
+            print(f"   Символы совпали, увеличиваем j до {j}")
+        else:
+            print(f"   Символы не совпали, j остается {j}")
         pi[i] = j
+        print(f"   Итог шага: pi[{i}] = {j}")
     
     print(f"pi-массив = {pi}")
    

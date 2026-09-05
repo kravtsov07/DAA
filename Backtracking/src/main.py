@@ -106,8 +106,6 @@ while stack:
                 break 
             else:
                 print(f"Все варианты для ({prev_r+1}, {prev_c+1}) исчерпаны, идем выше по стеку")
-        else:
-            break 
     else:
         mw = max_square_w(r_empty, c_empty)
         place(r_empty, c_empty, mw, mode="add")
